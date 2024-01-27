@@ -21,6 +21,7 @@ pygame.init()
 w, h = 1000, 800
 screen = pygame.display.set_mode((w, h))
 
+
 center = w//2, h//2
 
 
@@ -28,22 +29,36 @@ pygame.display.set_caption("HackedMapper")
 
 
 
+#------------------------------------
+#map init
 map = pygame.image.load('WorldMap.jpg')
 map.convert()
-rect = map.get_rect()
+
+rect1 = map.get_rect()
 angle=0
 
-#map init
-map = pygame.transform.rotozoom(map, angle, 0.4)
-rect.center = w//2, h//2
-rect = map.get_rect()
-rect.center = w//2, 620
+map = pygame.transform.rotozoom(map, angle, 0.5)
+rect1.center = w//2, h//2
+rect1 = map.get_rect()
+rect1.center = w//2, 550
 
-#
+#------------------------------------
+#picture init
+img = pygame.image.load('picture/Cityscape.jpeg')
+img.convert()
+rect2 = img.get_rect()
+angle=0
 
+img = pygame.transform.rotozoom(img, angle, 1.5)
+rect2.center = w//2, h//2
+rect2 = img.get_rect()
+rect2.center = w//2, 200
+
+
+#Start display
 screen.fill(GRAY)
-screen.blit(map, rect)
-pygame.draw.rect(screen, RED, rect, 1)
+screen.blit(map, rect1)
+screen.blit(img, rect2)
 pygame.display.update()
 
 running = True
