@@ -31,13 +31,11 @@ pygame.display.set_caption("HackedMapper")
 
 #------------------------------------
 #map init
-map = pygame.image.load('WorldMap.jpg')
-map.convert()
+map = pygame.image.load('world-map-png-35416.png')
 
 rect1 = map.get_rect()
 angle=0
 
-map = pygame.transform.rotozoom(map, angle, 0.5)
 rect1.center = w//2, h//2
 rect1 = map.get_rect()
 rect1.center = w//2, 550
@@ -68,6 +66,10 @@ rect3.center = w//3, 150
 
 #Start display
 screen.fill(GRAY)
+
+bd = pygame.image.load('texture-1668079_1920.jpg')
+
+screen.blit(bd, (0,0))
 screen.blit(map, rect1)
 screen.blit(img, rect2)
 screen.blit(score, rect3)
@@ -76,7 +78,6 @@ pygame.display.update()
 running = True
 while running:
     for event in pygame.event.get():
-        print(event)
         if event.type == pygame.QUIT:
             running = False
 
