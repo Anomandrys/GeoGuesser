@@ -15,13 +15,12 @@ CYAN = (0, 255, 255)
 MAGENTA = (255, 0, 255)
 
 
-
 pygame.init()
+
+
 #Check here to figure out how to fullscreen
 w, h = 1000, 800
 screen = pygame.display.set_mode((w, h))
-
-
 center = w//2, h//2
 
 
