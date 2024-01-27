@@ -80,4 +80,11 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+        pos = pygame.mouse.get_pos()
+
+        #if event.type == pygame.MOUSEBUTTONDOWN:
+        if pos[0] >= 130 and pos[0] <= 870 and pos[1] >= 130 and pos[1] <= 780:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                print("click")
+
 pygame.quit()
