@@ -52,7 +52,7 @@ angle=0
 img = pygame.transform.rotozoom(img, angle, 1.5)
 rect2.center = w//2, h//2
 rect2 = img.get_rect()
-rect2.center = w//2, 200
+rect2.center = w//2,150
 
 
 #Start display
