@@ -64,6 +64,7 @@ rect3.center = w//2, h//2
 rect3 = img.get_rect()
 rect3.center = w//3, 150
 
+#------------------------------------
 #Start display
 screen.fill(GRAY)
 
@@ -75,10 +76,19 @@ screen.blit(img, rect2)
 screen.blit(score, rect3)
 pygame.display.update()
 
+
 running = True
 while running:
     for event in pygame.event.get():
+        print(event)
         if event.type == pygame.QUIT:
             running = False
+
+        pos = pygame.mouse.get_pos()
+
+        #if event.type == pygame.MOUSEBUTTONDOWN:
+        if pos[0] >= 130 and pos[0] <= 870 and pos[1] >= 130 and pos[1] <= 780:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                print("click")
 
 pygame.quit()
