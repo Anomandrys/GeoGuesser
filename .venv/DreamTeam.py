@@ -54,11 +54,23 @@ rect2.center = w//2, h//2
 rect2 = img.get_rect()
 rect2.center = w//2,150
 
+#------------------------------------
+#score init
+score = pygame.image.load('picture/New Piskel.png')
+score.convert()
+rect3 = score.get_rect()
+angle=0
+
+score = pygame.transform.rotozoom(score, angle, 6)
+rect3.center = w//2, h//2
+rect3 = img.get_rect()
+rect3.center = w//3, 150
 
 #Start display
 screen.fill(GRAY)
 screen.blit(map, rect1)
 screen.blit(img, rect2)
+screen.blit(score, rect3)
 pygame.display.update()
 
 running = True
