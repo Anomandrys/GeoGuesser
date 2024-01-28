@@ -89,12 +89,12 @@ input_box = pygame.Rect(750, 100, 180, 100)
 message = "Hello, SAMPLE"
 
 # Create the message box
-message_box = pygame.Rect(100, 100, 180, 100)
+message_box = pygame.Rect(400, 100, 180, 100)
 message_box2 = pygame.Rect(100, 100, 180, 100)  # if answer is correct
 # Create the count box
 count_box = pygame.Rect(750, 100, 180, 100)
 
-answer_box = pygame.Rect(1000, 100, 180, 100)
+answer_box = pygame.Rect(100, 100, 180, 100)
 
 intro_box = pygame.Rect(500, 500, 180, 100)
 
@@ -139,7 +139,7 @@ def graphic_refresh():
     # Render and display the text
     if not correct:
         text_surface = font.render(message, True, text_color)
-        screen.blit(text_surface, (message_box.x + 5, input_box.y + 5))
+        screen.blit(text_surface, (message_box.x + 5, input_box.y + 190))
 
     if correct:
         text_surface = font.render(message2, True, text_color)
@@ -150,7 +150,7 @@ def graphic_refresh():
 
     if not correct:
         text_surface = font.render(answer, True, text_color)
-        screen.blit(text_surface, (answer_box.x - 168, answer_box.y + 100))
+        screen.blit(text_surface, (answer_box.x +5, answer_box.y + 5))
 
     pygame.display.flip()
 
@@ -159,7 +159,7 @@ def clear_page(filename):
     screen.blit(bd, (0, 0))
     screen.blit(map, rect1)
     img=pygame.image.load('picture/'+filename)
-    screen.blit(img, (350, 90))
+    screen.blit(img, (350, 50))
     pygame.display.update()
 
 
