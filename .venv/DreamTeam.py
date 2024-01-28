@@ -1,7 +1,9 @@
-import pygame,random,shutil,os
+import pygame, random, shutil, os
 from pygame.locals import *
 from pygame.image import *
 from pygame.transform import *
+import sys
+import os
 
 #imports and declarations:
 BLACK = (0, 0, 0)
@@ -13,7 +15,11 @@ BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 CYAN = (0, 255, 255)
 MAGENTA = (255, 0, 255)
+
 pygame.init()
+
+TOTAL_ROUND = 10
+
 #Check here to figure out how to fullscreen
 w, h = 1000, 800
 screen = pygame.display.set_mode((w, h))
@@ -61,7 +67,8 @@ pygame.display.update()
 
 #----------------------------------------------
 # Set up fonts and colors
-font = pygame.font.Font(None, 32)
+font_size = 30  # Adjusted font size
+font = pygame.font.Font(None, font_size)
 text_color = pygame.Color('black')
 input_box_color = pygame.Color('white')
 border_color = pygame.Color('black')
@@ -73,11 +80,14 @@ message = "Hello, SAMPLE"
 
 # Create the message box
 message_box = pygame.Rect(750, 100, 180, 100)
+message_box2 = pygame.Rect(750, 100, 180, 100) #if answer is correct
 # Create the count box
-count_box = pygame.Rect(750, 100, 180, 100)
+count_box = pygame.Rect(60, 100, 180, 100)
+
+answer_box = pygame.Rect(300, 100, 180, 100)
 
 #list of insults
-bad_answer = ['just a warm up, right?','nuh uh',"third time's a charm?" ,'is bad luck... or is there a trick?',"you really don't get it, do you?", "How you could that possibly go there","truly extremely far off","try again","Yep keep guessing","No way you just said that", "Some review required",
+bad_answer = ["just a warm up, right?",'nuh uh',"third time's a charm?" ,"is bad luck... or is there a trick?","you really don't get it, do you?", "How you could that possibly go there","truly extremely far off","try again","Yep keep guessing","No way you just said that", "Some review required",
            'care to try again']
 
 #scoreboard:
@@ -88,8 +98,49 @@ total_round_count = 0
 #this is the message to be printed
 count= "Your score is: "+str(right_count)+"/"+str(total_round_count)
 
+answer = "FLORIDA!"
+
+message2 = "Good!"
+
+current_message = bad_answer[wrong_count % len(bad_answer)]
+
+correct = True
+previously_correct = 0
 # Main loop
+
+# noinspection PyStatementEffect
+def graphic_refresh():
+    # Draw the input box
+    if (wrong_count > (len(bad_answer) - 1)):
+        message = bad_answer[(len(bad_answer) - 2)]
+    else:
+        message = bad_answer[wrong_count - 1]
+    # pygame.draw.rect(screen, input_box_color, input_box)
+    # pygame.draw.rect(screen, border_color, input_box, 2)
+
+    # Render and display the text
+    if not correct:
+        text_surface = font.render(message, True, text_color)
+        screen.blit(text_surface, (message_box.x + 5, input_box.y + 5))
+
+    if correct:
+        text_surface = font.render(message2, True, text_color)
+        screen.blit(text_surface, (message_box2.x + 5, message_box2.y + 5))
+
+    text_surface = font.render(count, True, text_color)
+    screen.blit(text_surface, (count_box.x + 5, count_box.y - 5))
+
+    if not correct:
+        text_surface = font.render(answer, True, text_color)
+        screen.blit(text_surface, (answer_box.x - 200, answer_box.y + 100))
+
+    pygame.display.flip()
+
+
 while True:
+
+    graphic_refresh()
+
     for event in pygame.event.get():
 
         if event.type == pygame.QUIT:
@@ -106,6 +157,7 @@ while True:
                 right_count+=1
                 total_round_count+=1
                 count = "Your score is: " + str(right_count) + "/" + str(total_round_count)
+                correct = True
 
         elif 300 > pos[0] or pos[0] < 315 or pos[1] < 513 or pos[1] > 530:
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -117,27 +169,38 @@ while True:
                 wrong_count+=1
                 total_round_count+=1
                 count = "Your score is: " + str(right_count) + "/" + str(total_round_count)
+                correct = False
 
-                pygame.draw.rect(screen, input_box_color, input_box)
-                pygame.draw.rect(screen, border_color, input_box, 2)
+            #pygame.draw.rect(screen, input_box_color, input_box)
+            #pygame.draw.rect(screen, border_color, input_box, 2)
+
 
 
     # Draw the input box
-
     if (wrong_count > (len(bad_answer) - 1)):
         message = bad_answer[(len(bad_answer) - 2)]
     else:
-        message = bad_answer[wrong_count]
-    pygame.draw.rect(screen, input_box_color, input_box)
-    pygame.draw.rect(screen, border_color, input_box, 2)
-
-
-    # Render and display the text
-    text_surface = font.render(message, True, text_color)
-    screen.blit(text_surface, (message_box.x + 5, input_box.y + 5))
+        message = bad_answer[wrong_count-1]
+    #pygame.draw.rect(screen, input_box_color, input_box)
+    #pygame.draw.rect(screen, border_color, input_box, 2)
 
 
     text_surface = font.render(count, True, text_color)
     screen.blit(text_surface, (count_box.x + 5, input_box.y - 5))
 
+
     pygame.display.flip()
+    
+
+
+    if total_round_count == TOTAL_ROUND:
+
+        # final print
+
+        graphic_refresh()
+
+        pygame.time.wait(1000)
+
+        pygame.quit()
+        sys.exit()
+
