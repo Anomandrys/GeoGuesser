@@ -96,7 +96,7 @@ count_box = pygame.Rect(750, 100, 180, 100)
 
 answer_box = pygame.Rect(100, 100, 180, 100)
 
-intro_box = pygame.Rect(500, 500, 180, 100)
+intro_box = pygame.Rect(500, 100, 180, 100)
 
 # list of insults
 bad_answer = ["just a warm up, right?", 'nuh uh', "third time's a charm?", "is bad luck... or is there a trick?",
@@ -119,6 +119,10 @@ message2 = "Good!"
 current_message = bad_answer[wrong_count % len(bad_answer)]
 
 intro_text = "welcome :)"
+start_instruction = "Click to start"
+instruction = "Rule: Click the location of the top image on the map"
+
+the_end = "The End"
 
 correct = True
 previously_correct = 0
@@ -164,9 +168,21 @@ def clear_page(filename):
 
 
 def front_page():
-    print("functionning")
     text_surface = font.render(intro_text, True, text_color2)
-    screen.blit(text_surface, (intro_box.x, input_box.y))
+    screen.blit(text_surface, (intro_box.x - 45, input_box.y + 250))
+    text_surface = font.render(start_instruction, True, text_color2)
+    screen.blit(text_surface, (intro_box.x - 53, input_box.y + 280))
+    text_surface = font.render(instruction, True, text_color2)
+    screen.blit(text_surface, (intro_box.x - 200, input_box.y + 310))
+
+def end_page():
+    text_surface = font.render(the_end, True, text_color2)
+    screen.blit(text_surface, (intro_box.x - 45, input_box.y + 250))
+
+    text_surface = font.render(count, True, text_color2)
+    screen.blit(text_surface, (count_box.x - 335, input_box.y + 280))
+
+    pygame.display.update()
 
 source_dir = 'picture'
 source_list = os.listdir(source_dir)
@@ -177,7 +193,6 @@ started = 0
 
 while True:
 
-    graphic_refresh()
 
     for event in pygame.event.get():
 
@@ -196,6 +211,7 @@ while True:
             graphic_refresh()
 
         else:
+            graphic_refresh()
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
@@ -210,7 +226,14 @@ while True:
                     previously_correct += 1
                     total_round_count += 1
 
-                    filename=img_list[right_count]
+
+                    if (right_count > (len(img_list) - 1)):
+                        filename = img_list[(len(img_list) - 2)]
+                    else:
+                        filename = img_list[right_count-1]
+
+                        # pygame.draw.rect(screen, input_box_color, input_box)
+                            # pygame.draw.rect(screen, border_color, input_box, 2)
                     clear_page(filename)
 
                     count = "Your score is: " + str(right_count) + "/" + str(total_round_count)
@@ -238,24 +261,31 @@ while True:
             # pygame.draw.rect(screen, border_color, input_box, 2)
 
         # Draw the input box
-    if (wrong_count > (len(bad_answer) - 1)):
-        message = bad_answer[(len(bad_answer) - 2)]
-    else:
-        message = bad_answer[wrong_count - 1]
-    # pygame.draw.rect(screen, input_box_color, input_box)
-    # pygame.draw.rect(screen, border_color, input_box, 2)
 
-    text_surface = font.render(count, True, text_color)
-    screen.blit(text_surface, (count_box.x + 5, input_box.y - 5))
+        if started > 1:
+            if (wrong_count > (len(bad_answer) - 1)):
+                message = bad_answer[(len(bad_answer) - 2)]
+            else:
+                message = bad_answer[wrong_count - 1]
+                # pygame.draw.rect(screen, input_box_color, input_box)
+                # pygame.draw.rect(screen, border_color, input_box, 2)
 
-    pygame.display.flip()
+            text_surface = font.render(count, True, text_color)
+            screen.blit(text_surface, (count_box.x + 5, input_box.y - 5))
+
+        pygame.display.flip()
 
     if total_round_count == TOTAL_ROUND:
         # final print
 
         graphic_refresh()
+        clear_page(filename)
+        screen.blit(bd, (0,0))
+        pygame.display.update()
+        end_page()
+        pygame.display.update
 
-        pygame.time.wait(1000)
+        pygame.time.wait(3000)
 
         pygame.quit()
         sys.exit()
