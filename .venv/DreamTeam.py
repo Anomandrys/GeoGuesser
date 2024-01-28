@@ -47,11 +47,10 @@ rect2.center = w//2,150
 #------------------------------------
 # generate image
 def generate_image():
-    filename = img_list[right_count]
     img = pygame.image.load('picture/'+filename)
 
     if (right_count > (len(img_list) - 1)):
-        filename=img_list[len(img_list)-1]
+        filename=img_list[len(img_list)-2]
     else:
         filename = img_list[right_count]
 
@@ -67,7 +66,6 @@ screen.fill(GRAY)
 bd = pygame.image.load('texture-1668079_1920.jpg')
 screen.blit(bd, (0,0))
 screen.blit(map, rect1)
-screen.blit(img, rect2)
 pygame.display.update()
 
 #----------------------------------------------
@@ -143,18 +141,21 @@ def graphic_refresh():
 
     pygame.display.flip()
 
-def clear_page():
+def clear_page(filename):
     screen.blit(bd, (0, 0))
     screen.blit(map, rect1)
-    screen.blit(img, (350,90))
+    img=pygame.image.load('picture/'+filename)
+    screen.blit(img,(350,90))
     pygame.display.update()
 
+source_dir = 'picture'
+source_list = os.listdir(source_dir)
+img_list = random.choices(source_list, k=len(source_list))
+filename = img_list[right_count]
+
+clear_page(filename)
 
 while True:
-    source_dir = 'picture'
-    source_list = os.listdir(source_dir)
-    img_list = random.choices(source_list, k=len(source_list) - 1)
-
     graphic_refresh()
 
     for event in pygame.event.get():
@@ -162,24 +163,30 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        print(event)
         if event.type == pygame.QUIT:
             running = False
         pos = pygame.mouse.get_pos()
         if 300 <= pos[0] <= 315 and pos[1] >= 513 and pos[1] <= 530:
             if event.type == pygame.MOUSEBUTTONDOWN:
-                clear_page()
-                print("FLORIDA")
-                generate_image()
-                right_count+=1
+
                 previously_correct +=1
                 total_round_count+=1
+                right_count+=1
+
+                filename=img_list[right_count]
+                clear_page(filename)
+
                 count = "Your score is: " + str(right_count) + "/" + str(total_round_count)
                 correct = True
 
         elif 300 > pos[0] or pos[0] < 315 or pos[1] < 513 or pos[1] > 530:
             if event.type == pygame.MOUSEBUTTONDOWN:
-                clear_page()
+
+                print("FLORIDA")
+
+
+                filename=img_list[right_count]
+                clear_page(filename)
 
                 if (wrong_count>(len(bad_answer)-1)):
                     message = bad_answer[(len(bad_answer)-2)]
@@ -210,7 +217,8 @@ while True:
 
 
     pygame.display.flip()
-    
+
+
 
 
     if total_round_count == TOTAL_ROUND:
