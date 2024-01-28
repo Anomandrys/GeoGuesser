@@ -86,7 +86,7 @@ message = "Hello, SAMPLE"
 message_box = pygame.Rect(750, 100, 180, 100)
 
 #list of insults
-bad_answer = ['just a warm up, right?','nuh uh',"third time's a charm?" ,'is bad luck... or is there a trick?',"you really don't get it, do you?", "How you could that possibly go there","truly extremely far off","No way you just said that", "Some review required",
+bad_answer = ['just a warm up, right?','nuh uh',"third time's a charm?" ,'is bad luck... or is there a trick?',"you really don't get it, do you?", "How you could that possibly go there","truly extremely far off","try again","Yep keep guessing","No way you just said that", "Some review required",
            'care to try again']
 wrong_count = 0
 # Main loop
