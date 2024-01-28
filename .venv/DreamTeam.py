@@ -100,11 +100,15 @@ while True:
         if event.type == pygame.QUIT:
             running = False
         pos = pygame.mouse.get_pos()
-        #if event.type == pygame.MOUSEBUTTONDOWN:
-        if pos[0] >= 130 and pos[0] <= 870 and pos[1] >= 130 and pos[1] <= 780:
+        if 300 <= pos[0] <= 315 and pos[1] >= 513 and pos[1] <= 530:
             if event.type == pygame.MOUSEBUTTONDOWN:
-                print("click")
+                print("FLORIDA")
                 generate_image()
+        elif 300 > pos[0] or pos[0] < 315 or pos[1] < 513 or pos[1] > 530:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                print("you are dumb")
+
+
     # Draw the input box
     message=bad_answer[wrong_count]
     pygame.draw.rect(screen, input_box_color, input_box)
