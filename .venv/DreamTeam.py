@@ -37,16 +37,7 @@ img = pygame.transform.rotozoom(img, angle, 1.5)
 rect2.center = w//2, h//2
 rect2 = img.get_rect()
 rect2.center = w//2,150
-#------------------------------------
-#score init
-score = pygame.image.load('New Piskel.png')
-score.convert()
-rect3 = score.get_rect()
-angle=0
-score = pygame.transform.rotozoom(score, angle, 6)
-rect3.center = w//2, h//2
-rect3 = img.get_rect()
-rect3.center = w//3, 150
+
 #------------------------------------
 # generate image
 def generate_image():
@@ -67,7 +58,6 @@ bd = pygame.image.load('texture-1668079_1920.jpg')
 screen.blit(bd, (0,0))
 screen.blit(map, rect1)
 screen.blit(img, rect2)
-screen.blit(score, rect3)
 pygame.display.update()
 
 #----------------------------------------------
@@ -84,6 +74,8 @@ message = "Hello, SAMPLE"
 
 # Create the message box
 message_box = pygame.Rect(750, 100, 180, 100)
+# Create the count box
+count_box = pygame.Rect(750, 100, 180, 100)
 
 #list of insults
 bad_answer = ['just a warm up, right?','nuh uh',"third time's a charm?" ,'is bad luck... or is there a trick?',"you really don't get it, do you?", "How you could that possibly go there","truly extremely far off","try again","Yep keep guessing","No way you just said that", "Some review required",
@@ -95,7 +87,7 @@ right_count = 0
 total_round_count = 0
 
 #this is the message to be printed
-count= str(right_count)+"/"+str(total_round_count)
+count= "Your score is: "+str(right_count)+"/"+str(total_round_count)
 
 # Main loop
 while True:
@@ -114,6 +106,7 @@ while True:
                 generate_image()
                 right_count+=1
                 total_round_count+=1
+                count = "Your score is: " + str(right_count) + "/" + str(total_round_count)
 
         elif 300 > pos[0] or pos[0] < 315 or pos[1] < 513 or pos[1] > 530:
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -124,6 +117,7 @@ while True:
 
                 wrong_count+=1
                 total_round_count+=1
+                count = "Your score is: " + str(right_count) + "/" + str(total_round_count)
 
                 pygame.draw.rect(screen, input_box_color, input_box)
                 pygame.draw.rect(screen, border_color, input_box, 2)
@@ -138,8 +132,13 @@ while True:
     pygame.draw.rect(screen, input_box_color, input_box)
     pygame.draw.rect(screen, border_color, input_box, 2)
 
+
     # Render and display the text
     text_surface = font.render(message, True, text_color)
     screen.blit(text_surface, (message_box.x + 5, input_box.y + 5))
+
+
+    text_surface = font.render(count, True, text_color)
+    screen.blit(text_surface, (count_box.x + 5, input_box.y - 5))
 
     pygame.display.flip()
