@@ -67,7 +67,7 @@ pygame.display.update()
 
 #----------------------------------------------
 # Set up fonts and colors
-font_size = 30  # Adjusted font size
+font_size = 24  # Adjusted font size
 font = pygame.font.Font(None, font_size)
 text_color = pygame.Color('black')
 input_box_color = pygame.Color('white')
@@ -82,7 +82,7 @@ message = "Hello, SAMPLE"
 message_box = pygame.Rect(750, 100, 180, 100)
 message_box2 = pygame.Rect(750, 100, 180, 100) #if answer is correct
 # Create the count box
-count_box = pygame.Rect(60, 100, 180, 100)
+count_box = pygame.Rect(100, 100, 180, 100)
 
 answer_box = pygame.Rect(300, 100, 180, 100)
 
@@ -132,7 +132,7 @@ def graphic_refresh():
 
     if not correct:
         text_surface = font.render(answer, True, text_color)
-        screen.blit(text_surface, (answer_box.x - 200, answer_box.y + 100))
+        screen.blit(text_surface, (answer_box.x - 168, answer_box.y + 100))
 
     pygame.display.flip()
 
@@ -155,6 +155,7 @@ while True:
                 print("FLORIDA")
                 generate_image()
                 right_count+=1
+                previously_correct +=1
                 total_round_count+=1
                 count = "Your score is: " + str(right_count) + "/" + str(total_round_count)
                 correct = True
