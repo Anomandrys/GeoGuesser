@@ -75,6 +75,37 @@ screen.blit(img, rect2)
 screen.blit(score, rect3)
 pygame.display.update()
 
+#----------------------------------------------
+# Set up fonts and colors
+font = pygame.font.Font(None, 32)
+text_color = pygame.Color('black')
+input_box_color = pygame.Color('white')
+border_color = pygame.Color('black')
+
+# Create the input box
+input_box = pygame.Rect(750, 100, 180, 100)
+# Message to display
+message = "Hello, SAMPLE"
+
+# Create the message box
+message_box = pygame.Rect(750, 100, 180, 100)
+
+# Main loop
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+    # Draw the input box
+    pygame.draw.rect(screen, input_box_color, input_box)
+    pygame.draw.rect(screen, border_color, input_box, 2)
+
+    # Render and display the text
+    text_surface = font.render(message, True, text_color)
+    screen.blit(text_surface, (message_box.x + 5, input_box.y + 5))
+
+    pygame.display.flip()
 
 running = True
 while running:
