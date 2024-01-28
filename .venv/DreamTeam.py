@@ -117,10 +117,10 @@ while True:
 
         elif 300 > pos[0] or pos[0] < 315 or pos[1] < 513 or pos[1] > 530:
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if (wrong_count>=len(wrong_count)):
-                    message = bad_answer[len(wrong_count-1)]
+                if (wrong_count>(len(bad_answer)-1)):
+                    message = bad_answer[(len(bad_answer)-2)]
                 else:
-                    message=bad_answer[wrong_count]
+                    message = bad_answer[wrong_count]
 
                 wrong_count+=1
                 total_round_count+=1
@@ -130,7 +130,11 @@ while True:
 
 
     # Draw the input box
-    message=bad_answer[wrong_count]
+
+    if (wrong_count > (len(bad_answer) - 1)):
+        message = bad_answer[(len(bad_answer) - 2)]
+    else:
+        message = bad_answer[wrong_count]
     pygame.draw.rect(screen, input_box_color, input_box)
     pygame.draw.rect(screen, border_color, input_box, 2)
 
