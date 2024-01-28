@@ -47,9 +47,19 @@ rect2.center = w//2,150
 #------------------------------------
 # generate image
 def generate_image():
+
     source_dir = 'picture'
-    filename = random.choice(os.listdir(source_dir))
+    source_list=os.listdir(source_dir)
+    img_list=random.choices(source_list,k=len(source_list)-1)
+
+    filename = img_list[right_count]
     img = pygame.image.load('picture/'+filename)
+
+    if (right_count > (len(img_list) - 1)):
+        filename=img_list[len(img_list)-1]
+    else:
+        filename = img_list[right_count]
+
     dest=350,90
     screen.blit(bd, (0, 0))
     screen.blit(map, rect1)
@@ -110,6 +120,7 @@ previously_correct = 0
 
 # noinspection PyStatementEffect
 def graphic_refresh():
+
     # Draw the input box
     if (wrong_count > (len(bad_answer) - 1)):
         message = bad_answer[(len(bad_answer) - 2)]
@@ -135,6 +146,7 @@ def graphic_refresh():
         screen.blit(text_surface, (answer_box.x - 168, answer_box.y + 100))
 
     pygame.display.flip()
+
 
 
 while True:
