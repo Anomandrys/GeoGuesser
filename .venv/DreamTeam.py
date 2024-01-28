@@ -113,21 +113,27 @@ while True:
                 print("FLORIDA")
                 generate_image()
                 right_count+=1
+                total_round_count+=1
 
         elif 300 > pos[0] or pos[0] < 315 or pos[1] < 513 or pos[1] > 530:
             if event.type == pygame.MOUSEBUTTONDOWN:
-                message = bad_answer[wrong_count]
-                if (wrong_count<10):
-                    wrong_count+=1
+                if (wrong_count>=len(wrong_count)):
+                    message = bad_answer[len(wrong_count-1)]
+                else:
+                    message=bad_answer[wrong_count]
+
+                wrong_count+=1
+                total_round_count+=1
 
                 pygame.draw.rect(screen, input_box_color, input_box)
                 pygame.draw.rect(screen, border_color, input_box, 2)
 
 
-     # Draw the input box
+    # Draw the input box
     message=bad_answer[wrong_count]
     pygame.draw.rect(screen, input_box_color, input_box)
     pygame.draw.rect(screen, border_color, input_box, 2)
+
     # Render and display the text
     text_surface = font.render(message, True, text_color)
     screen.blit(text_surface, (message_box.x + 5, input_box.y + 5))
