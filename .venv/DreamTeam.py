@@ -86,10 +86,12 @@ message = "Hello, SAMPLE"
 message_box = pygame.Rect(750, 100, 180, 100)
 
 #list of insults
-insults = ['How you could that possibly go there']
+bad_answer = ['just a warm up, right?','nuh uh',"third time's a charm?" ,'is bad luck... or is there a trick?',"you really don't get it, do you?", "How you could that possibly go there","truly extremely far off","No way you just said that", "Some review required",
+           'care to try again']
 
 # Main loop
 while True:
+    wrong_count=0
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -104,6 +106,7 @@ while True:
                 print("click")
                 generate_image()
     # Draw the input box
+    message=bad_answer[wrong_count]
     pygame.draw.rect(screen, input_box_color, input_box)
     pygame.draw.rect(screen, border_color, input_box, 2)
 
