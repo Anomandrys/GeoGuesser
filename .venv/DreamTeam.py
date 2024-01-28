@@ -48,7 +48,6 @@ def generate_image():
     screen.blit(bd, (0, 0))
     screen.blit(map, rect1)
     screen.blit(img, dest)
-    screen.blit(score, rect3)
     pygame.display.update()
 
 #------------------------------------
